@@ -1,0 +1,7 @@
+<div class="card_grid"> 
+  <catalog-item-card *ngFor="let item of items"
+                      class="mat-elevation-z5"
+                      (ButtonClick)="CardButtonClick($event)" 
+                      [Item]="item">
+  </catalog-item-card>
+</div>

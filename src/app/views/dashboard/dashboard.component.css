@@ -1,0 +1,12 @@
+.card_grid {
+    display: flex;
+    padding: 5px;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.card_grid catalog-item-card {
+    margin: 10px;
+}
