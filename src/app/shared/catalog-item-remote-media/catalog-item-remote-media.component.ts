@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { CatalogItem } from '../../models/catalog-item';
+import { RemoteMediaSource } from '../../models/remote-media-source';
+import { MediaSource } from '../../models/media-source';
+import { CatalogService } from '../../services/catalog.service';
+import { CatalogItemRemoteMedia } from '../../models/catalog-item-remote-media';
+import { CatalogItemDownloadSelection } from '../../models/catalog-item-download-selection';
 
 @Component({
   selector: 'catalog-item-remote-media',
@@ -8,8 +13,28 @@ import { CatalogItem } from '../../models/catalog-item';
 })
 export class CatalogItemRemoteMediaComponent implements OnInit {
   @Input() Item:CatalogItem;
+  @Output() UpdateDownloadLocations = new EventEmitter<CatalogItemRemoteMedia>();
+  @Output() DownloadSelected = new EventEmitter<CatalogItemDownloadSelection>();
 
-  constructor() { }
+  constructor(private catalog:CatalogService) { }
+
+  OnRequestDownloadOptions(media:RemoteMediaSource){
+    console.log("FillDownloadOptions: "+media.Name);
+    let dowloadLocationRequest = new CatalogItemRemoteMedia();
+    dowloadLocationRequest.CatalogItem = this.Item;
+    dowloadLocationRequest.MediaSource = media;
+
+    this.UpdateDownloadLocations.emit(dowloadLocationRequest);
+  };
+  
+  OnDownloadSelected(item:CatalogItem, media:MediaSource, downloadOption:MediaSource){
+    let downloadSelected = new CatalogItemDownloadSelection();
+    downloadSelected.CatalogItem = this.Item;
+    downloadSelected.Media = media;
+    downloadSelected.Download=downloadOption;
+
+    this.DownloadSelected.emit(downloadSelected);
+  }
 
   ngOnInit() {
   }

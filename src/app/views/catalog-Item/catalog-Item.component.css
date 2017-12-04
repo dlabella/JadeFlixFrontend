@@ -1,17 +1,3 @@
-.item-detail h1{
-    color: #007bff;
-}
-.item-detail_bg_banner {  
-    overflow: hidden;
-    opacity: 0.1;
-    position: fixed;
-    width: 100%;
-    height: 300px;
-}
-.item-detail_bg_banner img{
-    width: 100%; 
-    filter: blur(5px);
-}
 .item-detail_left{
     float: left;
     height: 100%;
@@ -37,8 +23,13 @@
     display: flex;
     flex-direction: column;
 }
-.item-detai-title{
-    color: darkgray;
+.item-detail_title{
+    color: #a9a9a9;
+    height: 40%;
+    overflow: auto;
+}
+.item-detail_title p{
+    font-size: 15px;
 }
 .item-detail_content{
     overflow: hidden;

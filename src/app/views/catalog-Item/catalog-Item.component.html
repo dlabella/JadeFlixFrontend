@@ -1,15 +1,18 @@
-<div class="item-detail_left elevation-z3">
-    <img class="mat-elevation-z3" src="{{Item.Poster}}">
+
+<div *ngIf="Item!=null" class="item-detail_left elevation-z3">
+    <img class="mat-elevation-z10" src="{{Item.Poster}}">
 </div>
-<div class="item-detail_right">
-  <div class="item-detai-title">
+<div *ngIf="Item!=null" class="item-detail_right">
+  <div class="item-detail_title">
     <h1><b>{{Item.Name}}</b></h1>
     <p>{{Item.Plot}}</p>
   </div>
   <div class="item-detail_content">
     <mat-tab-group selectedIndex=0>
       <mat-tab label="Remote">
-          <catalog-item-remote-media [Item]="Item"></catalog-item-remote-media>
+          <catalog-item-remote-media [Item]="Item" 
+            (UpdateDownloadLocations)="OnUpdateCatalogItemOptions($event)"
+            (DownloadSelected)="OnDownloadSelected($event)"></catalog-item-remote-media>
       </mat-tab>
       <mat-tab label="Local">
       </mat-tab>

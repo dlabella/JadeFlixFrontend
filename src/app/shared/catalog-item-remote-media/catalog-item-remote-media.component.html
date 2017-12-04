@@ -1,5 +1,18 @@
-<mat-selection-list style="height:100%">
-    <mat-list-option *ngFor="let media of Item.Media.Remote">
-      {{media.Name}}
-    </mat-list-option>
-</mat-selection-list>
+
+<!-- <mat-selection-list>
+  <mat-list-option *ngFor="let media of Item.Media.Remote">
+    {{media.Name}}
+  </mat-list-option>
+</mat-selection-list> -->
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let media of Item.Media.Remote" (opened)="OnRequestDownloadOptions(media)">
+      <mat-expansion-panel-header>
+        {{media.Name}}
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let downloadOption of media.DownloadLocations">
+          <a href="javascript:void(0);" (click)="OnDownloadSelected(Item, media, downloadOption)">{{downloadOption.Name}}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+</mat-accordion>
