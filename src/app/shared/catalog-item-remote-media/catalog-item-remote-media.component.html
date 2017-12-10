@@ -1,13 +1,11 @@
 
-<!-- <mat-selection-list>
-  <mat-list-option *ngFor="let media of Item.Media.Remote">
-    {{media.Name}}
-  </mat-list-option>
-</mat-selection-list> -->
 <mat-accordion>
     <mat-expansion-panel *ngFor="let media of Item.Media.Remote" (opened)="OnRequestDownloadOptions(media)">
       <mat-expansion-panel-header>
+        <div class="panel_header">
         {{media.Name}}
+        <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+        </div>
       </mat-expansion-panel-header>
       <mat-nav-list>
         <mat-list-item *ngFor="let downloadOption of media.DownloadLocations">

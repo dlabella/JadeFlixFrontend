@@ -1,4 +1,4 @@
-.media-headers-align .mat-expansion-panel-header-title, 
+/* .media-headers-align .mat-expansion-panel-header-title, 
 .media-headers-align .mat-expansion-panel-header-description {
   flex-basis: 0;
 }
@@ -9,4 +9,12 @@
 }
 .media-item{
  padding-top:5px;
+} */
+
+.panel_header{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  width: 95%;
 }

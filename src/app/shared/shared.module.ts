@@ -3,17 +3,20 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from "../core/core.module";
 import { CatalogItemCardModule } from './catalog-item-card/catalog-item-card.module';
 import { CatalogItemRemoteMediaModule } from './catalog-item-remote-media/catalog-item-remote-media.module';
+import { CatalogItemLocalMediaModule } from './catalog-item-local-media/catalog-item-local-media.module';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
     CatalogItemCardModule,
-    CatalogItemRemoteMediaModule
+    CatalogItemRemoteMediaModule,
+    CatalogItemLocalMediaModule
   ],
   exports: [
     CatalogItemCardModule,
-    CatalogItemRemoteMediaModule
+    CatalogItemRemoteMediaModule,
+    CatalogItemLocalMediaModule
   ],
   declarations: [
   ]

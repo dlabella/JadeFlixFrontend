@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -40,6 +41,7 @@ import {
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatButtonModule,
