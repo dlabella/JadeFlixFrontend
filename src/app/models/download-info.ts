@@ -1,4 +1,5 @@
 export class DownloadInfo {
+    public Id:string;
     public Name:string;
     public File:string;
     public Source:string;

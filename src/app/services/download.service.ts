@@ -19,8 +19,8 @@ export class DownloadService extends HttpApiService {
     //super(http,'https://192.168.1.130/jadeflix/api');
   }
 
-  download(group:string, kind:string ,name:string, file: string, url: string): Promise<MediaSource[]> {
-    const route = `download?group=${group}&kind=${kind}&name=${encodeURIComponent(name)}&url=${url}&file=${encodeURIComponent(file)}`;
+  download(id:string, group:string, kind:string ,name:string, file: string, url: string): Promise<MediaSource[]> {
+    const route = `download?id=${id}&group=${group}&kind=${kind}&name=${encodeURIComponent(name)}&url=${url}&file=${encodeURIComponent(file)}`;
     
     return this.apiCall(route)
       .then(response=>{

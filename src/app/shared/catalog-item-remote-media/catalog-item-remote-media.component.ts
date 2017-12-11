@@ -5,6 +5,7 @@ import { MediaSource } from '../../models/media-source';
 import { CatalogService } from '../../services/catalog.service';
 import { CatalogItemRemoteMedia } from '../../models/catalog-item-remote-media';
 import { CatalogItemDownloadSelection } from '../../models/catalog-item-download-selection';
+import { DownloadInfo } from '../../models/download-info';
 
 @Component({
   selector: 'catalog-item-remote-media',
@@ -34,6 +35,16 @@ export class CatalogItemRemoteMediaComponent implements OnInit {
     downloadSelected.Download=downloadOption;
 
     this.DownloadSelected.emit(downloadSelected);
+  }
+
+  getDowloadPercentCompleted(downloadInfo:DownloadInfo):number{
+    if (downloadInfo != null &&
+        downloadInfo.BytesTotal>0 &&
+        downloadInfo.BytesReceived>0) 
+    {
+      return ((downloadInfo.BytesReceived/downloadInfo.BytesTotal)*100)
+    }
+    return 0;
   }
 
   ngOnInit() {
