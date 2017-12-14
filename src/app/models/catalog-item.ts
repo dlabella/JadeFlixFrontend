@@ -1,19 +1,19 @@
 import { CatalogMedia } from './catalog-media';
 
 export class CatalogItem {
-    public Id:string;
-    public UId:string;
-    public NId:string;
-    public Name:string;
-    public Banner:string;
-    public Poster:string;
-    public Plot:string;
-    public Properties:Map<string,string>;
-    public ScrapedBy:string;
-    public Kind:string;
-    public KindName:string;
-    public Group:string;
-    public GroupName:string;
-    public Url:string;
-    public Media:CatalogMedia;
+	public id: string;
+	public uId: string;
+	public nId: string;
+	public name: string;
+	public banner: string;
+	public poster: string;
+	public plot: string;
+	public properties: Map<string, string>;
+	public scrapedBy: string;
+	public kind: string;
+	public kindName: string;
+	public group: string;
+	public groupName: string;
+	public url: string;
+	public media: CatalogMedia;
 }

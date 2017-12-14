@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { CatalogItem } from '../../models/catalog-item';
 import { RemoteMediaSource } from '../../models/remote-media-source';
 import { MediaSource } from '../../models/media-source';
@@ -6,48 +6,41 @@ import { CatalogService } from '../../services/catalog.service';
 import { CatalogItemRemoteMedia } from '../../models/catalog-item-remote-media';
 import { CatalogItemDownloadSelection } from '../../models/catalog-item-download-selection';
 import { DownloadInfo } from '../../models/download-info';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'catalog-item-remote-media',
-  templateUrl: './catalog-item-remote-media.component.html',
-  styleUrls: ['./catalog-item-remote-media.component.css']
+
+	selector: 'catalog-item-remote-media',
+	templateUrl: './catalog-item-remote-media.component.html',
+	styleUrls: ['./catalog-item-remote-media.component.css']
+
 })
-export class CatalogItemRemoteMediaComponent implements OnInit {
-  @Input() Item:CatalogItem;
-  @Output() UpdateDownloadLocations = new EventEmitter<CatalogItemRemoteMedia>();
-  @Output() DownloadSelected = new EventEmitter<CatalogItemDownloadSelection>();
+export class CatalogItemRemoteMediaComponent {
 
-  constructor(private catalog:CatalogService) { }
+	@Input() catalogItem: CatalogItem;
+	@Output() updateDownloadLocations = new EventEmitter<CatalogItemRemoteMedia>();
+	@Output() downloadSelected = new EventEmitter<CatalogItemDownloadSelection>();
 
-  OnRequestDownloadOptions(media:RemoteMediaSource){
-    console.log("FillDownloadOptions: "+media.Name);
-    let dowloadLocationRequest = new CatalogItemRemoteMedia();
-    dowloadLocationRequest.CatalogItem = this.Item;
-    dowloadLocationRequest.MediaSource = media;
+	constructor(private catalog: CatalogService) { }
 
-    this.UpdateDownloadLocations.emit(dowloadLocationRequest);
-  };
-  
-  OnDownloadSelected(item:CatalogItem, media:MediaSource, downloadOption:MediaSource){
-    let downloadSelected = new CatalogItemDownloadSelection();
-    downloadSelected.CatalogItem = this.Item;
-    downloadSelected.Media = media;
-    downloadSelected.Download=downloadOption;
+	onRequestDownloadOptions(media: RemoteMediaSource) {
+		console.log("FillDownloadOptions: " + media.name);
+		let dowloadLocationRequest = new CatalogItemRemoteMedia();
+		dowloadLocationRequest.catalogItem = this.catalogItem;
+		dowloadLocationRequest.mediaSource = media;
 
-    this.DownloadSelected.emit(downloadSelected);
-  }
+		this.updateDownloadLocations.emit(dowloadLocationRequest);
+	};
 
-  getDowloadPercentCompleted(downloadInfo:DownloadInfo):number{
-    if (downloadInfo != null &&
-        downloadInfo.BytesTotal>0 &&
-        downloadInfo.BytesReceived>0) 
-    {
-      return ((downloadInfo.BytesReceived/downloadInfo.BytesTotal)*100)
-    }
-    return 0;
-  }
+	onDownloadSelected(item: CatalogItem, media: MediaSource, downloadOption: MediaSource) {
+		let downloadSelection = new CatalogItemDownloadSelection();
+		downloadSelection.catalogItem = this.catalogItem;
+		downloadSelection.media = media;
+		downloadSelection.download = downloadOption;
 
-  ngOnInit() {
-  }
+		this.downloadSelected.emit(downloadSelection);
+	}
+
+
 
 }

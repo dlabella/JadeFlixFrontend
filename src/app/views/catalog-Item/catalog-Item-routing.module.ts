@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { CatalogItemComponent } from './catalog-item.component';
 
 const routes: Routes = [
-  { path:"catalog-item", component: CatalogItemComponent }
+	{ path: "catalog-item", component: CatalogItemComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+	imports: [
+		RouterModule.forChild(routes)
+	],
+	exports: [RouterModule]
 })
 
 export class CatalogItemRoutingModule { }

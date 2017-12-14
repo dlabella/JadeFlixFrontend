@@ -1,40 +1,47 @@
-.item-detail_left{
-    float: left;
-    height: 100%;
-    width: 30%;
-    padding-left: 35px;
-    align-items: center;
-    display: inline-flex;
+.item-detail_left {
+	float: left;
+	height: 100%;
+	width: 30%;
+	padding-left: 35px;
+	align-items: center;
+	display: inline-flex;
 }
-.item-detail_left img{
-    width: 100%;
+
+.item-detail_left img {
+	width: 100%;
 }
-.item-detail_left_poster{
-    width: 100%;
-    border: 5px;
-    border-style: solid;
-    border-color: #2a2a2a;
+
+.item-detail_left_poster {
+	width: 100%;
+	border: 5px;
+	border-style: solid;
+	border-color: #2a2a2a;
 }
-.item-detail_right{
-    float: right;
-    height: 100%;
-    width: 65%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+
+.item-detail_right {
+	float: right;
+	height: 100%;
+	width: 65%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
-.item-detail_title{
-    color: #a9a9a9;
-    height: 40%;
-    overflow: auto;
+
+.item-detail_title {
+	color: #a9a9a9;
+	height: 40%;
+	overflow: auto;
 }
-.item-detail_title p{
-    font-size: 15px;
+
+.item-detail_title p {
+	font-size: 15px;
 }
-.item-detail_content{
-    overflow: hidden;
-    height: 100%;
+
+.item-detail_content {
+	overflow: hidden;
+	height: 100%;
 }
-.mat-tab-group{
-    height: 100%;
+
+.mat-tab-group {
+	height: 100%;
 }

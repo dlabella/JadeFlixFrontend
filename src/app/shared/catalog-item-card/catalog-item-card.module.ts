@@ -4,15 +4,15 @@ import { CatalogItemCardComponent } from '../catalog-item-card/catalog-item-card
 import { CoreModule } from '../../core/core.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule
-  ],
-  exports:[
-    CatalogItemCardComponent
-  ],
-  declarations: [
-    CatalogItemCardComponent
-  ]
+	imports: [
+		CommonModule,
+		CoreModule
+	],
+	exports: [
+		CatalogItemCardComponent
+	],
+	declarations: [
+		CatalogItemCardComponent
+	]
 })
 export class CatalogItemCardModule { }

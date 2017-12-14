@@ -1,17 +1,4 @@
-/* .media-headers-align .mat-expansion-panel-header-title, 
-.media-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
-}
-
-.media-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
-}
-.media-item{
- padding-top:5px;
-} */
-
-.panel_header{
+.panel_header {
   display: flex;
   flex: 1;
   flex-direction: column;

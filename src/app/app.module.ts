@@ -10,22 +10,22 @@ import { LoggerService } from './services/logger.service';
 import { DownloadService } from './services/download.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    CoreModule,
-    ViewsModule
-  ],
-  providers: [
-    HttpClientModule,
-    CatalogService, 
-    LoggerService, 
-    DownloadService
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		AppRoutingModule,
+		CoreModule,
+		ViewsModule
+	],
+	providers: [
+		HttpClientModule,
+		CatalogService,
+		LoggerService,
+		DownloadService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

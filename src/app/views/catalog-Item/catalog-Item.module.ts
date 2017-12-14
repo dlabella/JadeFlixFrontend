@@ -5,16 +5,16 @@ import { SharedModule } from '../../shared/shared.module';
 import { CatalogItemComponent } from './catalog-item.component';
 
 @NgModule({
-  imports: [
-    CoreModule,
-    CommonModule,
-    SharedModule
-  ],
-  exports:[
-    CatalogItemComponent
-  ],
-  declarations: [
-    CatalogItemComponent
-  ]
+	imports: [
+		CoreModule,
+		CommonModule,
+		SharedModule
+	],
+	exports: [
+		CatalogItemComponent
+	],
+	declarations: [
+		CatalogItemComponent
+	]
 })
 export class CatalogItemModule { }

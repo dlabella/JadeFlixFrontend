@@ -1,5 +1,5 @@
 export class MediaSource {
-    public Name:string;
-    public Url:string;
-    public UId:string;
+	public name: string;
+	public url: string;
+	public uId: string;
 }

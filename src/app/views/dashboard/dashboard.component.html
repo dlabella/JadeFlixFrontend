@@ -1,7 +1,5 @@
 <div class="card_grid">
-  <catalog-item-card *ngFor="let item of items"
-                      class="mat-elevation-z5"
-                      (ButtonClick)="CardButtonClick($event)" 
-                      [Item]="item">
+  <catalog-item-card *ngFor="let catalogItem of catalogItems" class="mat-elevation-z5" (buttonClick)="cardButtonClick($event)"
+    [catalogItem]="catalogItem">
   </catalog-item-card>
 </div>

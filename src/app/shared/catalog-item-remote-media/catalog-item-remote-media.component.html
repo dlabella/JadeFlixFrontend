@@ -1,17 +1,18 @@
-
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let media of Item.Media.Remote" (opened)="OnRequestDownloadOptions(media)">
-      <mat-expansion-panel-header>
-        <div class="panel_header">
-        {{media.Name}}
-        
-        <mat-progress-bar *ngIf="media.DownloadState!=null" mode="determinate" value="getDowloadPercentCompleted(media.DownloadState)"></mat-progress-bar>
-        </div>
-      </mat-expansion-panel-header>
-      <mat-nav-list>
-        <mat-list-item *ngFor="let downloadOption of media.DownloadLocations">
-          <a href="javascript:void(0);" (click)="OnDownloadSelected(Item, media, downloadOption)">{{downloadOption.Name}}</a>
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let media of catalogItem.media.remote" (opened)="onRequestDownloadOptions(media)" hideToggle="true">
+    <mat-expansion-panel-header>
+      <div class="panel_header">
+        {{media.name}}
+        <mat-progress-bar *ngIf="media.queued==true " mode="query"></mat-progress-bar>
+        <mat-progress-bar *ngIf="media.downloading==true && (media.downloadPercentCompleted==0 || media.downloadPercentCompleted==null)"
+          mode="indeterminate"></mat-progress-bar>
+        <mat-progress-bar *ngIf="media.downloading==true && media.downloadPercentCompleted>0" mode="determinate" [value]="media.downloadPercentCompleted"></mat-progress-bar>
+      </div>
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+      <mat-list-item *ngFor="let downloadOption of media.downloadLocations">
+        <a href="javascript:void(0);" (click)="onDownloadSelected(Item, media, downloadOption)">{{downloadOption.name}}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-expansion-panel>
 </mat-accordion>

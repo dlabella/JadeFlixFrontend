@@ -8,25 +8,25 @@ import { DashboardRoutingModule } from '../views/dashboard/dashboard-routing.mod
 import { CatalogItemRoutingModule } from '../views/catalog-Item/catalog-Item-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    DashboardModule,
-    CatalogItemModule,
-    DashboardRoutingModule,
-    CatalogItemRoutingModule
-  ],
-  exports:[
-    DashboardModule,
-    CatalogItemModule,
-    DashboardRoutingModule,
-    CatalogItemRoutingModule
-  ],
-  providers:[
-    CatalogService
-  ],
-  declarations: [ 
-    
-  ]
+	imports: [
+		CommonModule,
+		CoreModule,
+		DashboardModule,
+		CatalogItemModule,
+		DashboardRoutingModule,
+		CatalogItemRoutingModule
+	],
+	exports: [
+		DashboardModule,
+		CatalogItemModule,
+		DashboardRoutingModule,
+		CatalogItemRoutingModule
+	],
+	providers: [
+		CatalogService
+	],
+	declarations: [
+
+	]
 })
 export class ViewsModule { }

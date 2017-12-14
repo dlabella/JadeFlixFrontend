@@ -1,7 +1,8 @@
 import { CatalogItem } from "./catalog-item";
 import { RemoteMediaSource } from "./remote-media-source";
+import { Observable } from "rxjs/Observable";
 
 export class CatalogItemRemoteMedia {
-    public CatalogItem:CatalogItem;
-    public MediaSource:RemoteMediaSource;
+	public catalogItem: CatalogItem;
+	public mediaSource: RemoteMediaSource;
 }

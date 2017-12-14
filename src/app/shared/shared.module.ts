@@ -6,19 +6,19 @@ import { CatalogItemRemoteMediaModule } from './catalog-item-remote-media/catalo
 import { CatalogItemLocalMediaModule } from './catalog-item-local-media/catalog-item-local-media.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    CatalogItemCardModule,
-    CatalogItemRemoteMediaModule,
-    CatalogItemLocalMediaModule
-  ],
-  exports: [
-    CatalogItemCardModule,
-    CatalogItemRemoteMediaModule,
-    CatalogItemLocalMediaModule
-  ],
-  declarations: [
-  ]
+	imports: [
+		CommonModule,
+		CoreModule,
+		CatalogItemCardModule,
+		CatalogItemRemoteMediaModule,
+		CatalogItemLocalMediaModule
+	],
+	exports: [
+		CatalogItemCardModule,
+		CatalogItemRemoteMediaModule,
+		CatalogItemLocalMediaModule
+	],
+	declarations: [
+	]
 })
 export class SharedModule { }
