@@ -1,7 +1,10 @@
 <mat-card>
-  <mat-card-title>{{Item.Name}}</mat-card-title>
-  <img mat-card-image src="{{Item.Poster}}">
+  <mat-card-title>{{catalogItem.name}}</mat-card-title>
+  <div mat-card-image class="card-image">
+    <img *ngIf="catalogItem.poster!=null && catalogItem.poster!=''" src="{{catalogItem.poster}}" />
+    <img *ngIf="catalogItem.poster==null || catalogItem.poster==''" src="{{catalogItem.preview}}" />
+  </div>
   <mat-card-actions>
-    <button mat-button (click)="OnButtonClick($event)">Episode {{Item.Properties.LastEpisode}}</button>
+    <button mat-button (click)="onButtonClick($event)">{{getButtonText()}}</button>
   </mat-card-actions>
 </mat-card>

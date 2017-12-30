@@ -16,6 +16,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
 	selector: 'app-catalog-item',
@@ -23,14 +24,18 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 	styleUrls: ['./catalog-item.component.css']
 })
 export class CatalogItemComponent implements OnInit, OnDestroy {
+	loading: boolean;
 	catalogItem: CatalogItem;
 	private activeDownloads: Subscription;
 
 	constructor(
 		private route: ActivatedRoute,
 		private catalogService: CatalogService,
-		private downloadService: DownloadService) {
-
+		private downloadService: DownloadService,
+		private logger:LoggerService,
+		private notifications:NotificationsService
+	) {
+		this.loading = true;
 	};
 
 	ngOnDestroy(): void {
@@ -40,13 +45,19 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.route.params
 			.switchMap((params: CatalogItem) =>
-				this.catalogService.getItem(params.scrapedBy, params.kindName, params.groupName, params.nId, params.uId))
-			.subscribe((item: CatalogItem) => {
-				this.catalogItem = item;
+				this.catalogService.getItem(params.scrapedBy, params.groupName, params.kindName, params.nId, params.uId))
+			.subscribe((catalogItem: CatalogItem) => {
+				this.loading = false;
+				this.catalogItem = catalogItem;
 			});
 
-		this.activeDownloads = IntervalObservable.create(1000).subscribe(() => this.getActiveDownloads());
+		this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
 	};
+
+	batchDownload():void{
+		this.downloadService.batchDownload(this.catalogItem.scrapedBy,this.catalogItem.groupName,this.catalogItem.kindName,this.catalogItem.uId)
+		.subscribe(result => this.logger.Info("Batch Key: "+result));
+	}
 
 	private getActiveDownloads(): void {
 		this.downloadService.getActiveDownloads().subscribe(result => this.updateMediaDownloadProgress(result));
@@ -65,7 +76,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 	private updateDownloadData(info: DownloadInfo, media: RemoteMediaSource): void {
 		media.downloading = !info.isCompleted;
 		media.queued = info.isQueued;
-		media.downloadPercentCompleted = info.percentCompleted;
+		media.percentCompleted = info.percentCompleted;
 	}
 
 	onUpdateCatalogItemOptions(catalogItemMedia: CatalogItemRemoteMedia) {
@@ -79,6 +90,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 
 	onDownloadSelected(catalogItemMedia: CatalogItemDownloadSelection) {
 		console.log("Getting real Url ...");
+		catalogItemMedia.media.queued = true;
 		this.catalogService.getMediaUrl(catalogItemMedia.catalogItem.scrapedBy, catalogItemMedia.download.uId)
 			.subscribe(
 			url => {

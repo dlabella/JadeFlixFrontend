@@ -36,7 +36,7 @@ import {
 	MatTooltipModule,
 	MatStepperModule,
 } from '@angular/material';
-
+import { SearchFilter } from './searchfilter.pipe';
 
 @NgModule({
 	imports: [
@@ -108,10 +108,12 @@ import {
 		MatTabsModule,
 		MatToolbarModule,
 		MatTooltipModule,
-		MatStepperModule
+		MatStepperModule,
+		SearchFilter
 	],
 	declarations: [
-		NavBarComponent
+		NavBarComponent,
+		SearchFilter
 	]
 })
 export class CoreModule { }

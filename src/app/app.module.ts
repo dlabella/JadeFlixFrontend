@@ -8,6 +8,8 @@ import { ViewsModule } from './views/views.module';
 import { CatalogService } from './services/catalog.service';
 import { LoggerService } from './services/logger.service';
 import { DownloadService } from './services/download.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
@@ -18,7 +20,9 @@ import { DownloadService } from './services/download.service';
 		HttpClientModule,
 		AppRoutingModule,
 		CoreModule,
-		ViewsModule
+		ViewsModule,
+		BrowserAnimationsModule, 
+        SimpleNotificationsModule.forRoot()
 	],
 	providers: [
 		HttpClientModule,

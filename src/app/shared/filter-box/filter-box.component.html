@@ -1,0 +1,6 @@
+<div class="filterbox">
+  <mat-form-field class="text-full-width">
+      <mat-icon matSuffix>filter</mat-icon>
+    <input #filter matInput placeholder="Filter" (keypress)="onKeyPress($event,filter.value)" />
+  </mat-form-field>
+</div>

@@ -1,16 +1,19 @@
-<div *ngIf="Item!=null" class="item-detail_left elevation-z3">
+<div *ngIf="catalogItem!=null" class="item-detail_left elevation-z3">
   <img class="mat-elevation-z10" src="{{catalogItem.poster}}">
 </div>
-<div *ngIf="Item!=null" class="item-detail_right">
+<div *ngIf="catalogItem!=null && !loading;else showLoading" class="item-detail_right">
   <div class="item-detail_title">
     <h1>
-      <b>{{catalogItem.Name}}</b>
+      <b>{{catalogItem.name}}</b>
     </h1>
     <p>{{catalogItem.plot}}</p>
   </div>
   <div class="item-detail_content mat-elevation-z10">
     <mat-tab-group selectedIndex=0>
       <mat-tab label="Remote">
+        <div>
+            <button mat-button (click)="batchDownload()">Download Them All</button>
+        </div>
         <catalog-item-remote-media [catalogItem]="catalogItem" (updateDownloadLocations)="onUpdateCatalogItemOptions($event)" (downloadSelected)="onDownloadSelected($event)">
         </catalog-item-remote-media>
       </mat-tab>
@@ -20,3 +23,6 @@
     </mat-tab-group>
   </div>
 </div>
+<ng-template #showLoading>
+    <loading-spinner></loading-spinner>
+</ng-template>

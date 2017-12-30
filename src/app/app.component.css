@@ -8,8 +8,8 @@
 }
 .app-content{
     position: fixed;
-    top: 75px;
-    width: calc(100% - 10px);
-    height: calc(100% - 85px);
+    top: 64px;
+    width: 100%;
+    height: calc(100% - 64px);
     overflow: auto;
 }

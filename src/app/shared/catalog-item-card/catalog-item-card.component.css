@@ -1,6 +1,17 @@
 mat-card {
 	width: 200px;
-	height: 250px;
+	height: 300px;
+	min-width: 200px;
+}
+
+.card-image{
+	min-width: 200px;
+    max-height: 228px;
+    overflow: hidden;
+}
+
+.card-image img {
+	width:100%;
 }
 
 mat-card>mat-card-title {
@@ -8,6 +19,7 @@ mat-card>mat-card-title {
 	height: 35px;
 	overflow: hidden;
 	font-size: 16px;
+	font-weight: bold;
 }
 
 mat-card>mat-card-actions:last-child {

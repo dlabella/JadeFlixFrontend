@@ -12,7 +12,13 @@ export class CatalogItemCardComponent {
 	@Output() buttonClick = new EventEmitter<CatalogItem>();
 
 	onButtonClick(event: any): void {
-		console.log("Episode button clicked");
 		this.buttonClick.emit(this.catalogItem);
+	}
+	
+	getButtonText(){
+		if (this.catalogItem.properties && this.catalogItem.properties["LastEpisode"]){
+			return "Episode "+this.catalogItem.properties["LastEpisode"];
+		}
+		return "View";
 	}
 }

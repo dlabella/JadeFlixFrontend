@@ -32,7 +32,7 @@ export class CatalogItemRemoteMediaComponent {
 		this.updateDownloadLocations.emit(dowloadLocationRequest);
 	};
 
-	onDownloadSelected(item: CatalogItem, media: MediaSource, downloadOption: MediaSource) {
+	onDownloadSelected(item: CatalogItem, media: RemoteMediaSource, downloadOption: MediaSource) {
 		let downloadSelection = new CatalogItemDownloadSelection();
 		downloadSelection.catalogItem = this.catalogItem;
 		downloadSelection.media = media;

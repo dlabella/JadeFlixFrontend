@@ -8,13 +8,13 @@ import { CatalogItem } from '../models/catalog-item';
 import { MediaSource } from '../models/media-source';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 export class CatalogService extends HttpApiService {
 
 	constructor(http: HttpClient) {
-		super(http, 'http://localhost:5000/jadeflix/api');
-		//super(http, 'https://192.168.1.130/jadeflix/api');
+		super(http, environment.jadeflixApiUrl);
 	}
 
 	getRecent(provider: string): Observable<CatalogItem[]> {
@@ -25,11 +25,29 @@ export class CatalogService extends HttpApiService {
 			});
 	};
 
-	getItem(provider: string, kind: string, group: string, name: string, id: string): Observable<CatalogItem> {
-		const route = `getItem/${provider}/${kind}/${group}/${name}/${id}`;
+	getLocal(group:string,kind:string): Observable<CatalogItem[]> {
+		const route = `getLocal/${group}/${kind}`;
+		return this.apiCall(route)
+			.map(res => {
+				return res as CatalogItem[];
+			});
+	};
+
+	getItem(provider: string, group: string, kind: string, name: string, id: string): Observable<CatalogItem> {
+		const route = `getItem/${provider}/${group}/${kind}/${name}/${id}`;
 		return this.apiCall(route)
 			.map(res => {
 				var entry = res as CatalogItem;
+				console.log("Response Entry: " + entry);
+				return entry;
+			});
+	};
+
+	findItem(provider: string, name: string): Observable<CatalogItem[]> {
+		const route = `findItem/${provider}/${name}`;
+		return this.apiCall(route)
+			.map(res => {
+				var entry = res as CatalogItem[];
 				console.log("Response Entry: " + entry);
 				return entry;
 			});

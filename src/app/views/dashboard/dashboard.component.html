@@ -1,5 +1,10 @@
-<div class="card_grid">
-  <catalog-item-card *ngFor="let catalogItem of catalogItems" class="mat-elevation-z5" (buttonClick)="cardButtonClick($event)"
-    [catalogItem]="catalogItem">
+<filter-box #filter></filter-box>
+<div *ngIf="!loading;else showLoading" class="card_grid">
+
+  <catalog-item-card *ngFor="let catalogItem of catalogItems | searchfilter: 'name' : filter.filterText" class="mat-elevation-z5"
+    (buttonClick)="cardButtonClick($event)" [catalogItem]="catalogItem">
   </catalog-item-card>
 </div>
+<ng-template #showLoading>
+  <loading-spinner></loading-spinner>
+</ng-template>

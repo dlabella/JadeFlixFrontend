@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-title>
+    {{download.name}}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{download.file}}
+  </mat-card-subtitle>
+    <mat-progress-bar *ngIf="download.isQueued == true " mode="query"></mat-progress-bar>
+    <mat-progress-bar *ngIf="download.isQueued != true && download.percentCompleted == 0" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf="download.isQueued != true && download.percentCompleted >  0" mode="determinate" [value]="download.percentCompleted"></mat-progress-bar>
+</mat-card>

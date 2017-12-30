@@ -1,0 +1,21 @@
+.text-full-width {
+    width: 100%;
+    padding-top: 10px;
+}
+
+input{
+	color: white;
+}
+
+mat-icon{
+	color: white;
+}
+
+.filterbox {
+	width: calc(100% - 100px);
+    position: fixed;
+    top: 64px;
+    z-index: 9999;
+    background-color: #303030;
+    padding-left: 40px;
+}

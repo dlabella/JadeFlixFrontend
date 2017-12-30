@@ -1,0 +1,6 @@
+<div class="searchbox">
+  <mat-form-field class="text-full-width">
+      <mat-icon matSuffix>search</mat-icon>
+    <input #filter matInput placeholder="Filter" (keypress)="onKeyPress($event,filter.value)" />
+  </mat-form-field>
+</div>
