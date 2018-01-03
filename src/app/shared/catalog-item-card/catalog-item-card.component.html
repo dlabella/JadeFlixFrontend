@@ -1,5 +1,10 @@
 <mat-card>
-  <mat-card-title>{{catalogItem.name}}</mat-card-title>
+  <div class="watching" *ngIf="catalogItem.watching==true">
+    <mat-icon>visibility</mat-icon>
+  </div>
+  <mat-card-title>
+    {{catalogItem.name}}
+  </mat-card-title>
   <div mat-card-image class="card-image">
     <img *ngIf="catalogItem.poster!=null && catalogItem.poster!=''" src="{{catalogItem.poster}}" />
     <img *ngIf="catalogItem.poster==null || catalogItem.poster==''" src="{{catalogItem.preview}}" />

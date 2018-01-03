@@ -32,7 +32,7 @@ export class DownloadsComponent implements OnInit, OnDestroy {
     if (this.working) return;
     this.working = true;
 
-    this.downloadService.getActiveDownloads()
+    this.downloadService.getDownloads()
       .catch(err => {
         this.downloads = [];
         this.working = false;

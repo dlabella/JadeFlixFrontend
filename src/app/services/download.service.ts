@@ -22,27 +22,22 @@ export class DownloadService extends HttpApiService {
 	download(id: string, group: string, kind: string, name: string, file: string, url: string): Observable<MediaSource[]> {
 		const route = `download?id=${id}&group=${group}&kind=${kind}&name=${encodeURIComponent(name)}&url=${url}&file=${encodeURIComponent(file)}`;
 
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(response => {
 				var entry = response as MediaSource[];
 				return entry;
 			});
 	};
 
-	batchDownload(provider:string, group: string, kind: string, uid: string): Observable<string> {
+	batchDownload(provider:string, group: string, kind: string, uid: string): Observable<any> {
 		const route = `batchDownload?scraper=${provider}&group=${group}&kind=${kind}&uid=${uid}`;
 
-		return this.apiCall(route)
-			.map(response => {
-				var entry = response as string;
-				return entry;
-			});
+		return this.apiGetCall(route);
 	};
 
-	getActiveDownloads(): Observable<DownloadInfo[]> {
-		const route = `getActiveDownloads`;
-
-		return this.apiCall(route)
+	getDownloads(): Observable<DownloadInfo[]> {
+		const route = `getDownloads`;
+		return this.apiGetCall(route)
 			.map(response => {
 				var entry = response as DownloadInfo[];
 				return entry;

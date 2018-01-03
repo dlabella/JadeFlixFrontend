@@ -3,10 +3,10 @@
     <mat-expansion-panel-header>
       <div class="panel_header">
         {{media.name}}
-        <mat-progress-bar *ngIf="media.queued==true " mode="query"></mat-progress-bar>
-        <mat-progress-bar *ngIf="media.downloading==true && (media.percentCompleted==0 || media.percentCompleted==null)"
+        <mat-progress-bar *ngIf="media.queued==true" mode="query"></mat-progress-bar>
+        <mat-progress-bar *ngIf="media.queued==false && media.downloading==true && (media.percentCompleted==0 || media.percentCompleted==null)"
           mode="indeterminate"></mat-progress-bar>
-        <mat-progress-bar *ngIf="media.downloading==true && media.percentCompleted>0" mode="determinate" [value]="media.percentCompleted"></mat-progress-bar>
+        <mat-progress-bar *ngIf="media.queued==false && media.downloading==true && media.percentCompleted>0" mode="determinate" [value]="media.percentCompleted"></mat-progress-bar>
       </div>
     </mat-expansion-panel-header>
     <mat-nav-list>

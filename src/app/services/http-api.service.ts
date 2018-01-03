@@ -8,14 +8,20 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HttpApiService {
 
-	constructor(protected http: HttpClient, protected baseApiUrl: string) { 
+	constructor(protected http: HttpClient, protected baseApiUrl: string) {
 	}
-	
-	protected apiCall(route: string): Observable<any> {
+
+	protected apiGetCall(route: string): Observable<any> {
 		return this.http.get(this.getApiUrl(route)).catch(this.handleError);
 	}
 
-	private getApiUrl(route: string):string {
+	protected apiPostCall(route: string, body: any): Observable<any> {
+		return this.http.post(this.getApiUrl(route), body, {
+			headers: { 'Content-Type': 'application/json' }
+		}).catch(this.handleError);
+	}
+
+	private getApiUrl(route: string): string {
 		let basePart: string;
 		let routePart: string;
 

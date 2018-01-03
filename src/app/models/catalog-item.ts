@@ -16,4 +16,5 @@ export class CatalogItem {
 	public groupName: string;
 	public url: string;
 	public media: CatalogMedia;
+	public watching:boolean;
 }

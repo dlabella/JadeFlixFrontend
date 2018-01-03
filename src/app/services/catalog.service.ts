@@ -19,7 +19,7 @@ export class CatalogService extends HttpApiService {
 
 	getRecent(provider: string): Observable<CatalogItem[]> {
 		const route = `getRecent/${provider}`;
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(res => {
 				return res as CatalogItem[];
 			});
@@ -27,7 +27,7 @@ export class CatalogService extends HttpApiService {
 
 	getLocal(group:string,kind:string): Observable<CatalogItem[]> {
 		const route = `getLocal/${group}/${kind}`;
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(res => {
 				return res as CatalogItem[];
 			});
@@ -35,7 +35,7 @@ export class CatalogService extends HttpApiService {
 
 	getItem(provider: string, group: string, kind: string, name: string, id: string): Observable<CatalogItem> {
 		const route = `getItem/${provider}/${group}/${kind}/${name}/${id}`;
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(res => {
 				var entry = res as CatalogItem;
 				console.log("Response Entry: " + entry);
@@ -43,9 +43,14 @@ export class CatalogService extends HttpApiService {
 			});
 	};
 
+	postItem(item:CatalogItem): Observable<any> {
+		const route = `postItem`;
+		return this.apiPostCall(route,item);
+	};
+
 	findItem(provider: string, name: string): Observable<CatalogItem[]> {
 		const route = `findItem/${provider}/${name}`;
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(res => {
 				var entry = res as CatalogItem[];
 				console.log("Response Entry: " + entry);
@@ -55,7 +60,7 @@ export class CatalogService extends HttpApiService {
 
 	getMedia(provider: string, uid: string): Observable<MediaSource[]> {
 		const route = `getmedia/${provider}/${uid}`;
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(response => {
 				var entry = response as MediaSource[];
 				return entry;
@@ -64,7 +69,7 @@ export class CatalogService extends HttpApiService {
 
 	getMediaUrl(provider: string, uid: string): Observable<MediaSource> {
 		const route = `getmediaurl/${provider}/${uid}`;
-		return this.apiCall(route)
+		return this.apiGetCall(route)
 			.map(response => {
 				var source = response as MediaSource;
 				return source;

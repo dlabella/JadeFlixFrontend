@@ -25,16 +25,17 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class CatalogItemComponent implements OnInit, OnDestroy {
 	loading: boolean;
-	catalogItem: CatalogItem;
+	@Input() catalogItem: CatalogItem; 
 	private activeDownloads: Subscription;
 
 	constructor(
 		private route: ActivatedRoute,
 		private catalogService: CatalogService,
 		private downloadService: DownloadService,
-		private logger:LoggerService,
-		private notifications:NotificationsService
+		private logger: LoggerService,
+		private notifications: NotificationsService
 	) {
+		this.catalogItem = new CatalogItem();
 		this.loading = true;
 	};
 
@@ -44,23 +45,42 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.route.params
-			.switchMap((params: CatalogItem) =>
-				this.catalogService.getItem(params.scrapedBy, params.groupName, params.kindName, params.nId, params.uId))
-			.subscribe((catalogItem: CatalogItem) => {
-				this.loading = false;
-				this.catalogItem = catalogItem;
+			.subscribe((params: CatalogItem) => {
+				this.catalogItem=params;
+				this.refresh();
 			});
 
 		this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
 	};
 
-	batchDownload():void{
-		this.downloadService.batchDownload(this.catalogItem.scrapedBy,this.catalogItem.groupName,this.catalogItem.kindName,this.catalogItem.uId)
-		.subscribe(result => this.logger.Info("Batch Key: "+result));
+	refresh(): void {
+		if (this.catalogItem == null) return;
+		this.loading = true;
+		this.catalogService.getItem(
+			this.catalogItem.scrapedBy,
+			this.catalogItem.groupName,
+			this.catalogItem.kindName,
+			this.catalogItem.nId,
+			this.catalogItem.uId)
+			.subscribe((catalogItem: CatalogItem) => {
+				this.loading = false;
+				this.catalogItem = catalogItem;
+			});
+	}
+
+	batchDownload(): void {
+		this.downloadService.batchDownload(this.catalogItem.scrapedBy, this.catalogItem.groupName, this.catalogItem.kindName, this.catalogItem.uId)
+			.subscribe(result => this.notifications.info("Downloads", "Batch Result: " + result.result));
+	}
+
+	updateCatalogItem(event): void {
+		this.catalogItem.watching = event.checked;
+		console.log("Updating Catalog Item");
+		this.catalogService.postItem(this.catalogItem).subscribe(result => this.notifications.info("Updated " + result.status));
 	}
 
 	private getActiveDownloads(): void {
-		this.downloadService.getActiveDownloads().subscribe(result => this.updateMediaDownloadProgress(result));
+		this.downloadService.getDownloads().subscribe(result => this.updateMediaDownloadProgress(result));
 	};
 
 	private updateMediaDownloadProgress(downloads: DownloadInfo[]): void {
@@ -102,7 +122,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 					catalogItemMedia.catalogItem.name,
 					catalogItemMedia.media.name + ".mp4",
 					url.uId
-				).subscribe();
+				).subscribe(result => this.notifications.info("Downloads", "Enqueued"));
 			});
 	}
 }
