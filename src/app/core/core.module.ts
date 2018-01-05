@@ -37,7 +37,7 @@ import {
 	MatStepperModule,
 } from '@angular/material';
 import { SearchFilter } from './searchfilter.pipe';
-
+import { SessionService } from '../services/session.service';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -114,6 +114,9 @@ import { SearchFilter } from './searchfilter.pipe';
 	declarations: [
 		NavBarComponent,
 		SearchFilter
+	],
+	providers: [
+		SessionService
 	]
 })
 export class CoreModule { }

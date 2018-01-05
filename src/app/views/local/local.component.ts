@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { CoreModule } from '../../core/core.module' 
 import { CatalogItem } from '../../models/catalog-item';
 import { Router } from '@angular/router';
 import { CatalogService } from '../../services/catalog.service';
 import { LoggerService } from '../../services/logger.service';
 import { NotificationsService } from 'angular2-notifications';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-local',
@@ -18,14 +20,17 @@ export class LocalComponent implements OnInit {
 		private router: Router,
 		private catalog: CatalogService,
 		private log: LoggerService,
-		private notifications:NotificationsService) {
+		private notifications:NotificationsService,
+		private session: SessionService
+	) {
 
 		this.catalogItems = null;
 		this.loading = true;
 	}
 
 	cardButtonClick(catalogItem: CatalogItem): void {
-		this.router.navigate(['/catalog-item', catalogItem]);
+		this.session.set("selectedItem", catalogItem);
+		this.router.navigate(['/catalog-item']);
 	}
 
 	ngOnInit(): void {

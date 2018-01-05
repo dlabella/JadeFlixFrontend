@@ -13,6 +13,7 @@ import { CatalogItemRoutingModule } from '../views/catalog-Item/catalog-Item-rou
 import { DownloadsRoutingModule } from '../views/downloads/downloads-routing.module'
 import { LocalRoutingModule } from '../views/local/local-routing.module';
 import { SearchRoutingModule } from '../views/search/search-routing.module';
+import { SessionService } from '../services/session.service';
 @NgModule({
 	imports: [
 		CommonModule,

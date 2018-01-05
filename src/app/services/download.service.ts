@@ -20,7 +20,7 @@ export class DownloadService extends HttpApiService {
 	}
 
 	download(id: string, group: string, kind: string, name: string, file: string, url: string): Observable<MediaSource[]> {
-		const route = `download?id=${id}&group=${group}&kind=${kind}&name=${encodeURIComponent(name)}&url=${url}&file=${encodeURIComponent(file)}`;
+		const route = `download?id=${encodeURIComponent(id)}&group=${group}&kind=${kind}&name=${encodeURIComponent(name)}&url=${encodeURIComponent(url)}&file=${encodeURIComponent(file)}`;
 
 		return this.apiGetCall(route)
 			.map(response => {

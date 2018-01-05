@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CoreModule } from '../../core/core.module';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CatalogItem } from '../../models/catalog-item';
 import { CatalogService } from '../../services/catalog.service';
@@ -17,6 +18,7 @@ import 'rxjs/add/operator/map';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { NotificationsService } from 'angular2-notifications';
+import { SessionService } from '../../services/session.service';
 
 @Component({
 	selector: 'app-catalog-item',
@@ -33,10 +35,14 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 		private catalogService: CatalogService,
 		private downloadService: DownloadService,
 		private logger: LoggerService,
-		private notifications: NotificationsService
+		private notifications: NotificationsService,
+		private session:SessionService
 	) {
-		this.catalogItem = new CatalogItem();
-		this.loading = true;
+		this.loading=true;
+		this.catalogItem = this.session.get<CatalogItem>("selectedItem");
+		if (this.catalogItem!=null){
+			this.refresh();
+		}
 	};
 
 	ngOnDestroy(): void {
@@ -44,11 +50,6 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.route.params
-			.subscribe((params: CatalogItem) => {
-				this.catalogItem=params;
-				this.refresh();
-			});
 
 		this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
 	};
@@ -121,7 +122,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 					catalogItemMedia.catalogItem.kindName,
 					catalogItemMedia.catalogItem.name,
 					catalogItemMedia.media.name + ".mp4",
-					url.uId
+					url.url
 				).subscribe(result => this.notifications.info("Downloads", "Enqueued"));
 			});
 	}
