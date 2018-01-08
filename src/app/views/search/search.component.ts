@@ -1,10 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CoreModule } from '../../core/core.module'
 import { CatalogItem } from '../../models/catalog-item';
 import { CatalogService } from '../../services/catalog.service';
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { fadeInContent } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +19,9 @@ export class SearchComponent implements OnInit {
   constructor(
     private router: Router,
     private catalogService: CatalogService,
-    private notifications: NotificationsService) {
+    private notifications: NotificationsService,
+    private session: SessionService
+  ) {
 
     this.loading = false;
 
@@ -27,7 +31,8 @@ export class SearchComponent implements OnInit {
   }
 
   cardButtonClick(catalogItem: CatalogItem): void {
-    this.router.navigate(['/catalog-item', catalogItem]);
+    this.session.set("selectedItem", catalogItem);
+    this.router.navigate(['/catalog-item']);
   }
 
   runSearch(filter: string): void {
