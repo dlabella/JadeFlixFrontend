@@ -38,6 +38,7 @@ import {
 } from '@angular/material';
 import { SearchFilter } from './searchfilter.pipe';
 import { SessionService } from '../services/session.service';
+import { utils } from 'protractor';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -73,7 +74,7 @@ import { SessionService } from '../services/session.service';
 		MatTabsModule,
 		MatToolbarModule,
 		MatTooltipModule,
-		MatStepperModule
+		MatStepperModule,
 	],
 	exports: [
 		BrowserAnimationsModule,
@@ -113,7 +114,7 @@ import { SessionService } from '../services/session.service';
 	],
 	declarations: [
 		NavBarComponent,
-		SearchFilter
+		SearchFilter,
 	],
 	providers: [
 		SessionService

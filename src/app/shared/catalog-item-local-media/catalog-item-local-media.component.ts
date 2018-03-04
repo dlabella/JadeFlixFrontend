@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CatalogItem } from '../../models/catalog-item';
+import { MediaSource } from '../../models/media-source';
 
 @Component({
 	selector: 'catalog-item-local-media',
@@ -13,5 +14,6 @@ export class CatalogItemLocalMediaComponent implements OnInit {
 
 	ngOnInit() {
 	}
+
 
 }

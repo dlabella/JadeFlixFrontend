@@ -31,8 +31,9 @@ export class SearchComponent implements OnInit {
   }
 
   cardButtonClick(catalogItem: CatalogItem): void {
-    this.session.set("selectedItem", catalogItem);
-    this.router.navigate(['/catalog-item']);
+    this.session.set("selectedItem", catalogItem).subscribe(result => {
+      this.router.navigate(['/catalog-item']);
+    });
   }
 
   runSearch(filter: string): void {

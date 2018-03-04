@@ -21,14 +21,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		AppRoutingModule,
 		CoreModule,
 		ViewsModule,
-		BrowserAnimationsModule, 
+		BrowserAnimationsModule,
         SimpleNotificationsModule.forRoot()
 	],
 	providers: [
 		HttpClientModule,
 		CatalogService,
 		LoggerService,
-		DownloadService
+    DownloadService
 	],
 	bootstrap: [AppComponent]
 })

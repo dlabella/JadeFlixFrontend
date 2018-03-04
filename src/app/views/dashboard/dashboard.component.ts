@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
 	catalogItems: CatalogItem[];
 	loading: boolean;
 	notificationService: NotificationsService;
+
 	constructor(
 		private router: Router,
 		private catalog: CatalogService,
@@ -25,14 +26,15 @@ export class DashboardComponent implements OnInit {
 		private notifications: NotificationsService,
 		private session: SessionService
 	) {
-
 		this.catalogItems = null;
 		this.loading = true;
 	}
 
 	cardButtonClick(catalogItem: CatalogItem): void {
-		this.session.set("selectedItem", catalogItem);
-		this.router.navigate(['/catalog-item']);
+    this.session.set("selectedItem", catalogItem)
+    .subscribe(result => {
+			this.router.navigate(['/catalog-item']);
+		});
 	}
 
 	ngOnInit(): void {

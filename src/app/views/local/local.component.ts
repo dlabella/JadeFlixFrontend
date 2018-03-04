@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreModule } from '../../core/core.module' 
+import { CoreModule } from '../../core/core.module'
 import { CatalogItem } from '../../models/catalog-item';
 import { Router } from '@angular/router';
 import { CatalogService } from '../../services/catalog.service';
@@ -29,8 +29,10 @@ export class LocalComponent implements OnInit {
 	}
 
 	cardButtonClick(catalogItem: CatalogItem): void {
-		this.session.set("selectedItem", catalogItem);
-		this.router.navigate(['/catalog-item']);
+    this.session.set("selectedItem", catalogItem)
+    .subscribe(response =>{
+			this.router.navigate(['/catalog-item']);
+		});
 	}
 
 	ngOnInit(): void {

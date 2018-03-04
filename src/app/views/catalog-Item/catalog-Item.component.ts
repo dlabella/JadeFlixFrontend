@@ -27,7 +27,7 @@ import { SessionService } from '../../services/session.service';
 })
 export class CatalogItemComponent implements OnInit, OnDestroy {
 	loading: boolean;
-	@Input() catalogItem: CatalogItem; 
+	@Input() catalogItem: CatalogItem;
 	private activeDownloads: Subscription;
 
 	constructor(
@@ -38,11 +38,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 		private notifications: NotificationsService,
 		private session:SessionService
 	) {
-		this.loading=true;
-		this.catalogItem = this.session.get<CatalogItem>("selectedItem");
-		if (this.catalogItem!=null){
-			this.refresh();
-		}
+
 	};
 
 	ngOnDestroy(): void {
@@ -50,8 +46,15 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-
-		this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
+		this.loading=true;
+    this.session.get<CatalogItem>("selectedItem")
+    .subscribe((result)=>{
+			this.catalogItem=result;
+			if (this.catalogItem!=null){
+				this.refresh();
+				this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
+			}
+		});
 	};
 
 	refresh(): void {

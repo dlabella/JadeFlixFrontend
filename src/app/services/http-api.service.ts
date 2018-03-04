@@ -12,11 +12,14 @@ export class HttpApiService {
 	}
 
 	protected apiGetCall(route: string): Observable<any> {
-		return this.http.get(this.getApiUrl(route)).catch(this.handleError);
+    var apiUrl = this.getApiUrl(route)
+    return this.http.get(apiUrl)
+    .catch(this.handleError);
 	}
 
 	protected apiPostCall(route: string, body: any): Observable<any> {
-		return this.http.post(this.getApiUrl(route), body, {
+    var apiUrl = this.getApiUrl(route);
+		return this.http.post(apiUrl, body, {
 			headers: { 'Content-Type': 'application/json' }
 		}).catch(this.handleError);
 	}
