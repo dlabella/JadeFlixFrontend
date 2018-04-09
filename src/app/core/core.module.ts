@@ -38,6 +38,8 @@ import {
 } from '@angular/material';
 import { SearchFilter } from './searchfilter.pipe';
 import { SessionService } from '../services/session.service';
+import { LazyImageLoaderService } from '../services/lazy-image-loader.service';
+
 import { utils } from 'protractor';
 @NgModule({
 	imports: [
@@ -117,7 +119,8 @@ import { utils } from 'protractor';
 		SearchFilter,
 	],
 	providers: [
-		SessionService
+    SessionService,
+    LazyImageLoaderService
 	]
 })
 export class CoreModule { }

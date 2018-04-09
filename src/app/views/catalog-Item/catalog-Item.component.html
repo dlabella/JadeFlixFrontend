@@ -1,5 +1,5 @@
 <div *ngIf="!loading" class="item-detail_left elevation-z3">
-  <img class="mat-elevation-z10" src="{{catalogItem.poster}}">
+  <img class="mat-elevation-z10 js-lazy-image" data-src="{{catalogItem.poster}}">
 </div>
 <div *ngIf="!loading;else showLoading" class="item-detail_right">
   <div class="item-detail_title">

@@ -48,13 +48,13 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.loading=true;
     this.session.get<CatalogItem>("selectedItem")
-    .subscribe((result)=>{
-			this.catalogItem=result;
-			if (this.catalogItem!=null){
-				this.refresh();
-				this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
-			}
-		});
+      .subscribe((result)=>{
+        this.catalogItem=result;
+        if (this.catalogItem!=null){
+          this.refresh();
+          this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
+        }
+      });
 	};
 
 	refresh(): void {

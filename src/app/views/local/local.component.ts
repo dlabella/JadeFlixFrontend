@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { CoreModule } from '../../core/core.module'
 import { CatalogItem } from '../../models/catalog-item';
 import { Router } from '@angular/router';
@@ -6,27 +6,35 @@ import { CatalogService } from '../../services/catalog.service';
 import { LoggerService } from '../../services/logger.service';
 import { NotificationsService } from 'angular2-notifications';
 import { SessionService } from '../../services/session.service';
+import { EventEmitter } from '@angular/core';
+import { LazyImageLoaderService } from '../../services/lazy-image-loader.service';
 
 @Component({
   selector: 'app-local',
   templateUrl: './local.component.html',
   styleUrls: ['./local.component.css']
 })
-export class LocalComponent implements OnInit {
+export class LocalComponent implements OnInit, AfterViewChecked {
   catalogItems: CatalogItem[];
 	loading: boolean;
+  elementsCountBuff: number;
 
 	constructor(
 		private router: Router,
 		private catalog: CatalogService,
 		private log: LoggerService,
 		private notifications:NotificationsService,
-		private session: SessionService
+    private session: SessionService,
+    private imageLoader: LazyImageLoaderService
 	) {
 
 		this.catalogItems = null;
-		this.loading = true;
-	}
+    this.loading = true;
+  }
+
+  ngAfterViewChecked(): void {
+    this.imageLoader.ProcessChanges();
+  }
 
 	cardButtonClick(catalogItem: CatalogItem): void {
     this.session.set("selectedItem", catalogItem)
@@ -46,7 +54,7 @@ export class LocalComponent implements OnInit {
 		})
 		.subscribe(value => {
 			this.loading = false;
-			this.catalogItems = value;
+      this.catalogItems = value;
 		});
 	}
 }

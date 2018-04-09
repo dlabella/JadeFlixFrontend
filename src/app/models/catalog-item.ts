@@ -6,7 +6,8 @@ export class CatalogItem {
 	public nId: string;
 	public name: string;
 	public banner: string;
-	public poster: string;
+  public poster: string;
+  public preview: string;
 	public plot: string;
 	public properties: Map<string, string>;
 	public scrapedBy: string;
@@ -16,5 +17,5 @@ export class CatalogItem {
 	public groupName: string;
 	public url: string;
 	public media: CatalogMedia;
-	public watching:boolean;
+  public watching:boolean;
 }

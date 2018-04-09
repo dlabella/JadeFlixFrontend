@@ -13,14 +13,19 @@ export class HttpApiService {
 
 	protected apiGetCall(route: string): Observable<any> {
     var apiUrl = this.getApiUrl(route)
-    return this.http.get(apiUrl)
+    return this.http.get(apiUrl,{
+      headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type, Accept'}
+    })
     .catch(this.handleError);
 	}
 
 	protected apiPostCall(route: string, body: any): Observable<any> {
     var apiUrl = this.getApiUrl(route);
 		return this.http.post(apiUrl, body, {
-			headers: { 'Content-Type': 'application/json' }
+			headers: {
+        'Content-Type':'application/json',
+        'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type, Accept'
+      }
 		}).catch(this.handleError);
 	}
 

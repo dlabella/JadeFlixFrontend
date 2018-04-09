@@ -18,10 +18,10 @@ export class SessionService extends HttpApiService {
   }
 
   set(key: string, value: any): Observable<any> {
-    const data = this.base64.encode(JSON.stringify(value));
-    const route = `session?sessionId=${this.sessionId}&key=${key}&value=${data}`;
+    //const data = this.base64.encode(JSON.stringify(value));
+    const route = `session?sessionId=${this.sessionId}&key=${key}`;
 
-    return this.apiGetCall(route)
+    return this.apiPostCall(route, value)
       .map(response => {
         return response;
       });
@@ -33,7 +33,7 @@ export class SessionService extends HttpApiService {
     return this.apiGetCall(route)
       .map(response => {
           const entry = response as SessionResponse;
-          const data = JSON.parse(this.base64.decode(entry.result)) as T;
+          const data = JSON.parse(entry.result) as T;
           return data;
       });
   }

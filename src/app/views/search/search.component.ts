@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewChecked } from '@angular/core';
 import { CoreModule } from '../../core/core.module'
 import { CatalogItem } from '../../models/catalog-item';
 import { CatalogService } from '../../services/catalog.service';
@@ -7,27 +7,33 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
 import { fadeInContent } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 import { SessionService } from '../../services/session.service';
+import { LazyImageLoaderService } from '../../services/lazy-image-loader.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewChecked {
   catalogItems: CatalogItem[];
   loading: boolean;
+
   constructor(
     private router: Router,
     private catalogService: CatalogService,
     private notifications: NotificationsService,
-    private session: SessionService
+    private session: SessionService,
+    private imageLoader: LazyImageLoaderService
   ) {
 
     this.loading = false;
-
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked(): void {
+    this.imageLoader.ProcessChanges();
   }
 
   cardButtonClick(catalogItem: CatalogItem): void {

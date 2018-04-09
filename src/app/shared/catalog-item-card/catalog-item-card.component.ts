@@ -14,11 +14,18 @@ export class CatalogItemCardComponent {
 	onButtonClick(event: any): void {
 		this.buttonClick.emit(this.catalogItem);
 	}
-	
+
 	getButtonText(){
 		if (this.catalogItem.properties && this.catalogItem.properties["LastEpisode"]){
 			return "Episode "+this.catalogItem.properties["LastEpisode"];
 		}
 		return "View";
-	}
+  }
+
+  getPoster():string{
+      if (this.catalogItem.poster && this.catalogItem.poster!=""){
+        return this.catalogItem.poster;
+      }
+      return this.catalogItem.preview;
+  }
 }
