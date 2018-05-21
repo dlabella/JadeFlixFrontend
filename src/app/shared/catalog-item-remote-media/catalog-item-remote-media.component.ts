@@ -6,7 +6,7 @@ import { CatalogService } from '../../services/catalog.service';
 import { CatalogItemRemoteMedia } from '../../models/catalog-item-remote-media';
 import { CatalogItemDownloadSelection } from '../../models/catalog-item-download-selection';
 import { DownloadInfo } from '../../models/download-info';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
 

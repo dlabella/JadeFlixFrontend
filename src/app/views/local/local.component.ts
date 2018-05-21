@@ -1,10 +1,12 @@
+
+import {catchError} from 'rxjs/operators';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { CoreModule } from '../../core/core.module'
 import { CatalogItem } from '../../models/catalog-item';
 import { Router } from '@angular/router';
 import { CatalogService } from '../../services/catalog.service';
 import { LoggerService } from '../../services/logger.service';
-import { NotificationsService } from 'angular2-notifications';
+import {SnotifyService, SnotifyPosition, SnotifyToastConfig} from 'ng-snotify';
 import { SessionService } from '../../services/session.service';
 import { EventEmitter } from '@angular/core';
 import { LazyImageLoaderService } from '../../services/lazy-image-loader.service';
@@ -23,7 +25,7 @@ export class LocalComponent implements OnInit, AfterViewChecked {
 		private router: Router,
 		private catalog: CatalogService,
 		private log: LoggerService,
-		private notifications:NotificationsService,
+		private notifications:SnotifyService,
     private session: SessionService,
     private imageLoader: LazyImageLoaderService
 	) {
@@ -45,13 +47,13 @@ export class LocalComponent implements OnInit, AfterViewChecked {
 
 	ngOnInit(): void {
 		this.log.Info("Requesting catalog recent");
-		this.catalog.getLocal("Anime","TvShow")
-		.catch(err=>{
+		this.catalog.getLocal("Anime","TvShow").pipe(
+		catchError(err=>{
 			this.catalogItems=[];
 			this.loading = false;
 			this.notifications.error("Api Call Error", err.message||err);
 			return Promise.reject(err.message||err);
-		})
+		}))
 		.subscribe(value => {
 			this.loading = false;
       this.catalogItems = value;

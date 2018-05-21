@@ -8,7 +8,7 @@ import { CatalogItemComponent } from './catalog-item.component';
 	imports: [
 		CoreModule,
 		CommonModule,
-		SharedModule
+    SharedModule
 	],
 	exports: [
 		CatalogItemComponent

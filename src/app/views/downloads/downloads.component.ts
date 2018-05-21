@@ -1,11 +1,13 @@
+
+import {catchError} from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { DownloadInfo } from '../../models/download-info';
 import { RemoteMediaSource } from '../../models/remote-media-source';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { DownloadService } from '../../services/download.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { NotificationsService } from 'angular2-notifications';
+import {SnotifyService, SnotifyPosition, SnotifyToastConfig} from 'ng-snotify';
 
 @Component({
   selector: 'app-downloads',
@@ -16,8 +18,9 @@ export class DownloadsComponent implements OnInit, OnDestroy {
 
   private activeDownloads: Subscription;
   downloads: DownloadInfo[];
-  constructor(private downloadService: DownloadService,
-  private notifications:NotificationsService) { }
+  constructor(
+    private downloadService: DownloadService,
+    private notifications:SnotifyService) { }
   working: boolean;
 
   ngOnInit() {
@@ -32,13 +35,13 @@ export class DownloadsComponent implements OnInit, OnDestroy {
     if (this.working) return;
     this.working = true;
 
-    this.downloadService.getDownloads()
-      .catch(err => {
+    this.downloadService.getDownloads().pipe(
+      catchError(err => {
         this.downloads = [];
         this.working = false;
         this.notifications.error("Api Call Error",(err.message || err));
         return Promise.reject(err.message || err);
-      })
+      }))
       .subscribe(
       result => {
         this.working = false;

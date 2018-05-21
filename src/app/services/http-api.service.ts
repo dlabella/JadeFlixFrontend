@@ -1,39 +1,44 @@
+//import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
-@Injectable()
 export class HttpApiService {
+  _http:HttpClient;
+  _baseApiUrl: string;
 
-	constructor(protected http: HttpClient, protected baseApiUrl: string) {
+	constructor(
+    http: HttpClient,
+    baseApiUrl: string) {
+      this._http=http;
+      this._baseApiUrl=baseApiUrl;
 	}
 
-	protected apiGetCall(route: string): Observable<any> {
+  protected apiGetCall(route: string): Observable<object> {
     var apiUrl = this.getApiUrl(route)
-    return this.http.get(apiUrl,{
+    return this._http.get(apiUrl,{
       headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type, Accept'}
-    })
-    .catch(this.handleError);
+    });
+    //.pipe(catchError(this.handleError));
 	}
 
-	protected apiPostCall(route: string, body: any): Observable<any> {
+	protected apiPostCall(route: string, body: object): Observable<object> {
     var apiUrl = this.getApiUrl(route);
-		return this.http.post(apiUrl, body, {
+		return this._http.post(apiUrl, body, {
 			headers: {
         'Content-Type':'application/json',
         'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type, Accept'
       }
-		}).catch(this.handleError);
-	}
+    });
+    //.pipe(catchError(this.handleError));
+  }
 
 	private getApiUrl(route: string): string {
 		let basePart: string;
 		let routePart: string;
 
-		basePart = this.baseApiUrl;
+		basePart = this._baseApiUrl;
 		routePart = route;
 
 		if (basePart.endsWith('/')) {

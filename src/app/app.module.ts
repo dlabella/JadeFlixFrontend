@@ -8,7 +8,7 @@ import { ViewsModule } from './views/views.module';
 import { CatalogService } from './services/catalog.service';
 import { LoggerService } from './services/logger.service';
 import { DownloadService } from './services/download.service';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -22,13 +22,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		CoreModule,
 		ViewsModule,
 		BrowserAnimationsModule,
-        SimpleNotificationsModule.forRoot()
+    SnotifyModule
 	],
 	providers: [
 		HttpClientModule,
 		CatalogService,
 		LoggerService,
-    DownloadService
+    DownloadService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
 	],
 	bootstrap: [AppComponent]
 })

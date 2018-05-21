@@ -1,11 +1,13 @@
+
+import {catchError} from 'rxjs/operators';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
 import { CatalogItem } from '../../models/catalog-item';
 import { CatalogService } from '../../services/catalog.service';
 import { LoggerService } from '../../services/logger.service';
 import { Router } from '@angular/router';
-import { NotificationsService } from 'angular2-notifications';
-import { Observable } from 'rxjs/Observable';
+import {SnotifyService, SnotifyPosition, SnotifyToastConfig} from 'ng-snotify';
+import { Observable } from 'rxjs';
 import { SessionService } from '../../services/session.service';
 import { LazyImageLoaderService } from '../../services/lazy-image-loader.service';
 
@@ -25,7 +27,7 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
 		private router: Router,
 		private catalog: CatalogService,
 		private log: LoggerService,
-		private notifications: NotificationsService,
+		private notifications: SnotifyService,
     private session: SessionService,
     private imageLoader: LazyImageLoaderService
 	) {
@@ -46,12 +48,12 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
 
 	ngOnInit(): void {
 		this.log.Info("Requesting catalog recent");
-		this.catalog.getRecent("AnimeFlv").catch(err => {
+		this.catalog.getRecent("AnimeFlv").pipe(catchError(err => {
 			this.catalogItems = [];
 			this.loading = false;
 			this.notifications.error("Api Call Error", err.message || err);
 			return Promise.reject(err.message || err);
-		}).subscribe(value => {
+		})).subscribe(value => {
 			this.loading = false;
       this.catalogItems = value;
 		});

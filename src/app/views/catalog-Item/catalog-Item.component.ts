@@ -10,14 +10,11 @@ import { CatalogItemRemoteMedia } from '../../models/catalog-item-remote-media';
 import { CatalogItemMedia } from '../../models/catalog-item-media';
 import { CatalogItemDownloadSelection } from '../../models/catalog-item-download-selection';
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { DownloadInfo } from '../../models/download-info';
 import { RemoteMediaSource } from '../../models/remote-media-source';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { NotificationsService } from 'angular2-notifications';
+import {SnotifyService, SnotifyPosition, SnotifyToastConfig} from 'ng-snotify';
 import { SessionService } from '../../services/session.service';
 
 @Component({
@@ -35,7 +32,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 		private catalogService: CatalogService,
 		private downloadService: DownloadService,
 		private logger: LoggerService,
-		private notifications: NotificationsService,
+		private notifications: SnotifyService,
 		private session:SessionService
 	) {
 
@@ -51,13 +48,13 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
       .subscribe((result)=>{
         this.catalogItem=result;
         if (this.catalogItem!=null){
-          this.refresh();
+          this.refresh(false);
           this.activeDownloads = IntervalObservable.create(5000).subscribe(() => this.getActiveDownloads());
         }
       });
 	};
 
-	refresh(): void {
+	refresh(force:boolean): void {
 		if (this.catalogItem == null) return;
 		this.loading = true;
 		this.catalogService.getItem(
@@ -65,7 +62,8 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
 			this.catalogItem.groupName,
 			this.catalogItem.kindName,
 			this.catalogItem.nId,
-			this.catalogItem.uId)
+      this.catalogItem.uId,
+      force)
 			.subscribe((catalogItem: CatalogItem) => {
 				this.loading = false;
 				this.catalogItem = catalogItem;

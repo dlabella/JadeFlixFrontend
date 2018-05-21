@@ -1,3 +1,5 @@
+
+import {catchError} from 'rxjs/operators';
 import { Component, OnInit, Output, EventEmitter, AfterViewChecked } from '@angular/core';
 import { CoreModule } from '../../core/core.module'
 import { CatalogItem } from '../../models/catalog-item';
@@ -5,7 +7,7 @@ import { CatalogService } from '../../services/catalog.service';
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { fadeInContent } from '@angular/material';
-import { NotificationsService } from 'angular2-notifications';
+import {SnotifyService, SnotifyPosition, SnotifyToastConfig} from 'ng-snotify';
 import { SessionService } from '../../services/session.service';
 import { LazyImageLoaderService } from '../../services/lazy-image-loader.service';
 
@@ -21,7 +23,7 @@ export class SearchComponent implements OnInit, AfterViewChecked {
   constructor(
     private router: Router,
     private catalogService: CatalogService,
-    private notifications: NotificationsService,
+    private notifications: SnotifyService,
     private session: SessionService,
     private imageLoader: LazyImageLoaderService
   ) {
@@ -45,13 +47,13 @@ export class SearchComponent implements OnInit, AfterViewChecked {
   runSearch(filter: string): void {
     this.catalogItems = null;
     this.loading = true;
-    this.catalogService.findItem("AnimeFlv", filter)
-      .catch(err => {
+    this.catalogService.findItem("AnimeFlv", filter).pipe(
+      catchError(err => {
         this.catalogItems = [];
         this.loading = false;
         this.notifications.error("Api Call Error", err.message || err);
         return Promise.reject(err.message || err);
-      })
+      }))
       .subscribe(items => {
         this.loading = false;
         this.catalogItems = items;
