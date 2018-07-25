@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { hostname } from 'os';
 
 export class HttpApiService {
   _http:HttpClient;
@@ -11,8 +12,9 @@ export class HttpApiService {
 	constructor(
     http: HttpClient,
     baseApiUrl: string) {
-      this._http=http;
-      this._baseApiUrl=baseApiUrl;
+			this._http=http;
+			let origin = window.location.origin;
+      this._baseApiUrl=baseApiUrl.replace("{0}", origin);
 	}
 
   protected apiGetCall(route: string): Observable<object> {

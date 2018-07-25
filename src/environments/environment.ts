@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  jadeflixApiUrl: "http://localhost:5000/jadeflix/api"
+  //jadeflixApiUrl: "{0}/jadeflix/api"
+  jadeflixApiUrl: "https://local.jadecloud.xyz/jadeflix/api"
 };
